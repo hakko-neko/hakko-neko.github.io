@@ -290,6 +290,14 @@
       statusEl.textContent = '保存しました';
       statusEl.className = 'ok';
       loadHistory();
+
+      // フォームをリセットして、続けて入力しやすくする
+      document.getElementById('health-form').reset();
+      $('date-input').value = todayStr(); // 日付は今日のまま維持
+      document.querySelectorAll('#rice-choice .choice-btn').forEach(b => b.classList.remove('selected'));
+      selectedRice = '';
+      $('mood-out').textContent = '3';
+      $('appetite-out').textContent = '3';
     } catch (err) {
       statusEl.textContent = '保存に失敗しました。もう一度試してね';
       statusEl.className = 'err';
