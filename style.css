@@ -287,9 +287,11 @@ footer.site-footer {
 }
 .cat-ear-frame::before {
   left: 6%;
+  transform: rotate(-8deg);
 }
 .cat-ear-frame::after {
   right: 6%;
+  transform: rotate(8deg);
 }
 .cat-ear-frame img {
   position: relative;
