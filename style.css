@@ -3,6 +3,8 @@
    ベージュベース ＋ ページごとのアクセントカラー
    =========================================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Yomogi&family=Zen+Maru+Gothic:wght@400;700;800&display=swap');
+
 :root {
   /* ベース（共通） */
   --base-bg: #f7f2e7;
@@ -259,6 +261,43 @@ footer.site-footer {
   font-size: 11.5px;
   color: var(--ink-soft);
   text-align: center;
+}
+
+/* 遊び心を出したい見出し（サイト名・ロゴ横テキストなど）専用フォント */
+.playful-heading {
+  font-family: 'Yomogi', 'Zen Maru Gothic', sans-serif;
+  font-weight: 700;
+}
+
+/* 猫耳フレーム（ロゴ画像を丸く囲み、上部に耳をつける） */
+.cat-ear-frame {
+  position: relative;
+  display: inline-block;
+}
+.cat-ear-frame::before,
+.cat-ear-frame::after {
+  content: '';
+  position: absolute;
+  top: -18%;
+  width: 32%;
+  height: 42%;
+  background: var(--accent-top);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  z-index: 0;
+}
+.cat-ear-frame::before {
+  left: -4%;
+  transform: rotate(-18deg);
+}
+.cat-ear-frame::after {
+  right: -4%;
+  transform: rotate(18deg);
+}
+.cat-ear-frame img {
+  position: relative;
+  z-index: 1;
+  border-radius: 50%;
+  display: block;
 }
 
 /* ===========================================
