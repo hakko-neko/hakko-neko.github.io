@@ -278,20 +278,21 @@ footer.site-footer {
 .cat-ear-frame::after {
   content: '';
   position: absolute;
-  top: -18%;
-  width: 32%;
-  height: 42%;
+  top: -12%;
+  width: 26%;
+  height: 34%;
   background: var(--accent-top);
-  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  clip-path: polygon(50% 0%, 15% 100%, 85% 100%);
+  border-radius: 50% 50% 20% 20% / 60% 60% 20% 20%;
   z-index: 0;
 }
 .cat-ear-frame::before {
-  left: -4%;
-  transform: rotate(-18deg);
+  left: 2%;
+  transform: rotate(-16deg);
 }
 .cat-ear-frame::after {
-  right: -4%;
-  transform: rotate(18deg);
+  right: 2%;
+  transform: rotate(16deg);
 }
 .cat-ear-frame img {
   position: relative;
