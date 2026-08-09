@@ -22,6 +22,45 @@
     margin-bottom: 10px;
   }
 
+  .stopwatch-box {
+    background: var(--base-bg);
+    border: 1px solid var(--base-border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .sw-time {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--page-accent-dark);
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 6px;
+  }
+  .sw-accumulated {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+  .sw-accumulated strong { color: var(--page-accent-dark); font-weight: 800; }
+  .sw-btn-row { display: flex; gap: 10px; }
+  .sw-btn {
+    flex: 1;
+    border: none;
+    border-radius: 10px;
+    padding: 13px;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .sw-btn.start { background: var(--page-accent); color: #fffdf8; }
+  .sw-btn.stop { background: var(--accent-other-dark); color: #fffdf8; }
+  .sw-btn.reset { background: var(--base-bg-card); color: var(--ink-soft); border: 1px solid var(--base-border); flex: 0 0 auto; padding: 13px 18px; }
+  .sw-btn:disabled { opacity: 0.4; cursor: default; }
+  .sw-status { font-size: 11.5px; color: var(--ink-soft); margin-top: 10px; min-height: 14px; }
+  .sw-status.running { color: var(--page-accent-dark); font-weight: 700; }
+
   .form-grid { display: flex; flex-direction: column; gap: 14px; }
   .field-block { background: var(--base-bg); border: 1px solid var(--base-border); border-radius: var(--radius-md); padding: 14px 16px; }
   .field-block label.title { display: block; font-size: 13.5px; font-weight: 700; margin-bottom: 8px; }
@@ -40,6 +79,17 @@
 
   .inline-row { display: flex; align-items: center; gap: 10px; }
   .inline-row input[type="number"] { width: 90px; }
+  .inline-row .fill-btn {
+    border: 1px solid var(--page-accent);
+    background: var(--page-accent-soft);
+    color: var(--page-accent-dark);
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+  }
 
   .submit-btn {
     width: 100%;
@@ -84,6 +134,20 @@
   </div>
 
   <div class="card">
+    <h2>ストップウォッチ</h2>
+    <div class="stopwatch-box">
+      <div class="sw-time" id="sw-display">00:00:00</div>
+      <div class="sw-accumulated">この日の積算時間：<strong id="sw-accumulated-min">0</strong>分</div>
+      <div class="sw-btn-row">
+        <button class="sw-btn start" id="sw-start-btn">開始</button>
+        <button class="sw-btn stop" id="sw-stop-btn" disabled>終了</button>
+        <button class="sw-btn reset" id="sw-reset-btn">リセット</button>
+      </div>
+      <div class="sw-status" id="sw-status"></div>
+    </div>
+  </div>
+
+  <div class="card">
     <h2>今日の学習ログ</h2>
     <form id="log-form" class="form-grid">
       <div class="field-block">
@@ -108,6 +172,7 @@
         <div class="inline-row">
           <input type="number" id="log-minutes" placeholder="分" min="0" max="600">
           <span style="font-size:13px; color:var(--ink-soft);">分</span>
+          <button type="button" class="fill-btn" id="fill-from-sw-btn">⏱ 積算時間を入れる</button>
         </div>
       </div>
       <button type="submit" class="submit-btn" id="log-submit-btn">記録する</button>
@@ -146,6 +211,82 @@
     return (md.getMonth() + 1) + '/' + md.getDate();
   }
 
+  // ---------- ストップウォッチ（開始→終了を繰り返して積算） ----------
+  const SW_STORAGE_KEY = 'sw_accumulated_seconds_' + todayStr();
+  let swRunning = false;
+  let swStartTime = null;
+  let swIntervalId = null;
+  let swAccumulatedSeconds = Number(sessionStorage.getItem(SW_STORAGE_KEY) || 0);
+
+  function formatHMS(totalSeconds) {
+    const h = Math.floor(totalSeconds / 3600);
+    const m = Math.floor((totalSeconds % 3600) / 60);
+    const s = Math.floor(totalSeconds % 60);
+    const pad = n => String(n).padStart(2, '0');
+    return pad(h) + ':' + pad(m) + ':' + pad(s);
+  }
+
+  function updateSwDisplay() {
+    let current = swAccumulatedSeconds;
+    if (swRunning && swStartTime) {
+      current += (Date.now() - swStartTime) / 1000;
+    }
+    $('sw-display').textContent = formatHMS(current);
+    $('sw-accumulated-min').textContent = Math.round(current / 60);
+  }
+
+  $('sw-start-btn').addEventListener('click', () => {
+    if (swRunning) return;
+    swRunning = true;
+    swStartTime = Date.now();
+    $('sw-start-btn').disabled = true;
+    $('sw-stop-btn').disabled = false;
+    $('sw-status').textContent = '計測中…';
+    $('sw-status').className = 'sw-status running';
+    swIntervalId = setInterval(updateSwDisplay, 1000);
+  });
+
+  $('sw-stop-btn').addEventListener('click', () => {
+    if (!swRunning) return;
+    const elapsed = (Date.now() - swStartTime) / 1000;
+    swAccumulatedSeconds += elapsed;
+    sessionStorage.setItem(SW_STORAGE_KEY, String(swAccumulatedSeconds));
+    swRunning = false;
+    swStartTime = null;
+    clearInterval(swIntervalId);
+    $('sw-start-btn').disabled = false;
+    $('sw-stop-btn').disabled = true;
+    $('sw-status').textContent = '一時停止中。「開始」で再開できます';
+    $('sw-status').className = 'sw-status';
+    updateSwDisplay();
+  });
+
+  $('sw-reset-btn').addEventListener('click', () => {
+    if (swRunning) {
+      clearInterval(swIntervalId);
+      swRunning = false;
+      swStartTime = null;
+      $('sw-start-btn').disabled = false;
+      $('sw-stop-btn').disabled = true;
+    }
+    swAccumulatedSeconds = 0;
+    sessionStorage.removeItem(SW_STORAGE_KEY);
+    $('sw-status').textContent = 'リセットしました';
+    $('sw-status').className = 'sw-status';
+    updateSwDisplay();
+  });
+
+  $('fill-from-sw-btn').addEventListener('click', () => {
+    let current = swAccumulatedSeconds;
+    if (swRunning && swStartTime) {
+      current += (Date.now() - swStartTime) / 1000;
+    }
+    $('log-minutes').value = Math.round(current / 60);
+  });
+
+  updateSwDisplay();
+
+  // ---------- 学習ログ ----------
   $('log-form').addEventListener('submit', async function (e) {
     e.preventDefault();
     const btn = $('log-submit-btn');
