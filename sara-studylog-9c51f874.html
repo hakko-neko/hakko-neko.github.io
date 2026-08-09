@@ -158,6 +158,7 @@
         <label class="title">カテゴリ</label>
         <select id="log-category">
           <option value="財表">財表（税理士試験）</option>
+          <option value="法人税法">法人税法（税理士試験）</option>
           <option value="近大">近大通信</option>
           <option value="産能大">産能大</option>
           <option value="その他">その他</option>
@@ -281,7 +282,11 @@
     if (swRunning && swStartTime) {
       current += (Date.now() - swStartTime) / 1000;
     }
-    $('log-minutes').value = Math.round(current / 60);
+    // 30秒未満は切り捨て、30秒以上は切り上げ
+    const minutes = Math.floor(current / 60);
+    const remainderSeconds = current % 60;
+    const roundedMinutes = remainderSeconds >= 30 ? minutes + 1 : minutes;
+    $('log-minutes').value = roundedMinutes;
   });
 
   updateSwDisplay();
@@ -328,7 +333,12 @@
         listEl.innerHTML = '<p class="loading">まだ記録がありません</p>';
         return;
       }
-      const sorted = rows.slice().reverse().slice(0, 31);
+      // 日付の降順（新しい日付が上）にソート。同日は元の並び順（新しい記録が下）を維持
+      const sorted = rows.slice().sort((a, b) => {
+        const da = String(a.date).slice(0, 10);
+        const db = String(b.date).slice(0, 10);
+        return db.localeCompare(da);
+      }).slice(0, 31);
       listEl.innerHTML = sorted.map(r => {
         const tags = [];
         if (r.category) tags.push(r.category);

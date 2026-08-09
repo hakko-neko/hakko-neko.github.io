@@ -316,7 +316,12 @@
         listEl.innerHTML = '<p class="loading">まだ記録がありません</p>';
         return;
       }
-      const sorted = rows.slice().reverse().slice(0, 31);
+      // 日付の降順（新しい日付が上）にソート
+      const sorted = rows.slice().sort((a, b) => {
+        const da = String(a.date).slice(0, 10);
+        const db = String(b.date).slice(0, 10);
+        return db.localeCompare(da);
+      }).slice(0, 31);
       listEl.innerHTML = sorted.map(r => {
         const tags = [];
         if (r.breakfast === true || r.breakfast === 'TRUE') tags.push('朝食○');
