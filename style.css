@@ -274,25 +274,25 @@ footer.site-footer {
   position: relative;
   display: inline-block;
 }
-.cat-ear-frame::before,
-.cat-ear-frame::after {
-  content: '';
+.cat-ear-frame .cat-ear {
   position: absolute;
-  top: -8%;
-  width: 26%;
-  height: 22%;
-  background: var(--accent-top);
-  clip-path: polygon(50% 0%, 10% 100%, 90% 100%);
-  border-radius: 50% 50% 40% 40% / 80% 80% 30% 30%;
+  top: -14%;
+  width: 30%;
+  height: 30%;
   z-index: 0;
 }
-.cat-ear-frame::before {
-  left: 2%;
-  transform: rotate(-16deg);
+.cat-ear-frame .cat-ear.left {
+  left: 4%;
+  transform: rotate(-12deg);
 }
-.cat-ear-frame::after {
-  right: 2%;
-  transform: rotate(16deg);
+.cat-ear-frame .cat-ear.right {
+  right: 4%;
+  transform: rotate(12deg) scaleX(-1);
+}
+.cat-ear-frame .cat-ear svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 .cat-ear-frame img {
   position: relative;
