@@ -269,30 +269,27 @@ footer.site-footer {
   font-weight: 700;
 }
 
-/* 猫耳フレーム（ロゴ画像を丸く囲み、上部に耳をつける） */
+/* 猫耳フレーム（ロゴ画像の上に正三角形を重ねて耳っぽく見せる） */
 .cat-ear-frame {
   position: relative;
   display: inline-block;
 }
-.cat-ear-frame .cat-ear {
+.cat-ear-frame::before,
+.cat-ear-frame::after {
+  content: '';
   position: absolute;
-  top: -14%;
+  top: -10%;
   width: 30%;
   height: 30%;
+  background: var(--accent-top);
+  clip-path: polygon(50% 0%, 6.7% 100%, 93.3% 100%); /* 正三角形に近い比率 */
   z-index: 0;
 }
-.cat-ear-frame .cat-ear.left {
-  left: 4%;
-  transform: rotate(-12deg);
+.cat-ear-frame::before {
+  left: 6%;
 }
-.cat-ear-frame .cat-ear.right {
-  right: 4%;
-  transform: rotate(12deg) scaleX(-1);
-}
-.cat-ear-frame .cat-ear svg {
-  width: 100%;
-  height: 100%;
-  display: block;
+.cat-ear-frame::after {
+  right: 6%;
 }
 .cat-ear-frame img {
   position: relative;
