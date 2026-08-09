@@ -52,18 +52,22 @@
 
 * { box-sizing: border-box; }
 
+html { overflow-x: hidden; }
+
 body {
   margin: 0;
   font-family: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Yu Gothic', sans-serif;
   background: var(--base-bg);
   color: var(--ink);
   line-height: 1.7;
+  overflow-x: hidden;
 }
 
 .page {
   max-width: 880px;
   margin: 0 auto;
   padding: 32px 20px 60px;
+  width: 100%;
 }
 
 /* ヘッダー（全ページ共通の枠、アクセント色だけ変わる） */
@@ -74,6 +78,8 @@ body {
   padding-bottom: 20px;
   margin-bottom: 28px;
   border-bottom: 1px solid var(--base-border);
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .site-header .logo {
@@ -84,6 +90,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
 }
 
 .site-header .logo img {
@@ -96,7 +103,13 @@ body {
 .site-header nav {
   display: flex;
   gap: 18px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  max-width: 100%;
 }
+
+.site-header nav::-webkit-scrollbar { display: none; }
 
 .site-header nav a {
   font-size: 13.5px;
@@ -106,6 +119,8 @@ body {
   padding: 6px 2px;
   border-bottom: 2px solid transparent;
   transition: color .15s, border-color .15s;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .site-header nav a:hover {
@@ -150,6 +165,7 @@ body {
   border-radius: var(--radius-lg);
   padding: 22px;
   margin-bottom: 18px;
+  overflow-x: hidden;
 }
 
 .card h2 {
@@ -208,10 +224,6 @@ body {
   gap: 16px;
 }
 
-@media (max-width: 600px) {
-  .nav-grid { grid-template-columns: 1fr; }
-}
-
 .nav-card {
   display: block;
   background: var(--base-bg-card);
@@ -247,4 +259,70 @@ footer.site-footer {
   font-size: 11.5px;
   color: var(--ink-soft);
   text-align: center;
+}
+
+/* ===========================================
+   スマホ向けレイアウト調整
+   =========================================== */
+@media (max-width: 600px) {
+  .page {
+    padding: 20px 14px 44px;
+  }
+
+  .nav-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .site-header {
+    padding-bottom: 14px;
+    margin-bottom: 20px;
+  }
+
+  .site-header .logo {
+    font-size: 16px;
+  }
+
+  .site-header .logo img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .site-header nav {
+    gap: 14px;
+    width: 100%;
+  }
+
+  .site-header nav a {
+    font-size: 12.5px;
+  }
+
+  .page-hero h1 {
+    font-size: 21px;
+  }
+
+  .page-hero p {
+    font-size: 13.5px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  /* フォームの横並び要素は縦積みに */
+  .inline-row {
+    flex-wrap: wrap;
+  }
+
+  /* テーブルは横スクロールできるように */
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+
+  /* 数値入力欄などが画面幅を超えないように */
+  input, select, textarea {
+    max-width: 100%;
+  }
 }
