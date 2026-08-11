@@ -23,21 +23,10 @@
     transition: transform .15s, box-shadow .15s;
   }
   .article-card:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.06); }
-  .article-card.is-dummy { opacity: 0.55; cursor: default; }
-  .article-card.is-dummy:hover { transform: none; box-shadow: none; }
 
   .ac-left { flex: 1; min-width: 0; }
-  .ac-date { font-size: 11px; color: var(--ink-soft); margin-bottom: 4px; }
-  .ac-title { font-size: 14.5px; font-weight: 800; margin-bottom: 4px; }
-  .ac-desc { font-size: 12px; color: var(--ink-soft); }
+  .ac-title { font-size: 14.5px; font-weight: 800; }
   .ac-arrow { font-size: 18px; color: var(--page-accent); flex-shrink: 0; }
-
-  .coming-note {
-    text-align: center;
-    padding: 20px;
-    font-size: 12.5px;
-    color: var(--ink-soft);
-  }
 </style>
 </head>
 <body>
@@ -57,42 +46,35 @@
   <div class="page-hero">
     <div class="eyebrow">WRITING</div>
     <h1>Writing</h1>
-    <p>noteで発信した記事をまとめています。執筆準備中です。</p>
+    <p>noteで発信した記事をまとめています。</p>
   </div>
 
   <div class="card">
     <h2>記事一覧</h2>
     <div class="article-list">
 
-      <div class="article-card is-dummy">
+      <a href="https://note.com/enyu_tax/n/n8f45276a30cd" class="article-card" target="_blank" rel="noopener">
         <div class="ac-left">
-          <div class="ac-date">準備中</div>
-          <div class="ac-title">税理士試験に挑戦する理由</div>
-          <div class="ac-desc">なぜ今、税理士を目指しているのか。これまでの歩みを振り返って。</div>
+          <div class="ac-title">【時事】食料品消費税減税は有効なのか</div>
         </div>
         <div class="ac-arrow">→</div>
-      </div>
+      </a>
 
-      <div class="article-card is-dummy">
+      <a href="https://note.com/enyu_tax/n/n7cd9a4b386ed" class="article-card" target="_blank" rel="noopener">
         <div class="ac-left">
-          <div class="ac-date">準備中</div>
-          <div class="ac-title">通信制大学で学ぶということ</div>
-          <div class="ac-desc">仕事と学業を両立するための工夫と、続けるコツ。</div>
+          <div class="ac-title">「税理士」のあるべき姿</div>
         </div>
         <div class="ac-arrow">→</div>
-      </div>
+      </a>
 
-      <div class="article-card is-dummy">
+      <a href="https://note.com/enyu_tax/n/nfe8eac9902b0" class="article-card" target="_blank" rel="noopener">
         <div class="ac-left">
-          <div class="ac-date">準備中</div>
-          <div class="ac-title">誠実さを、最大の競争力に</div>
-          <div class="ac-desc">将来の独立に向けて考えている、経営への想い。</div>
+          <div class="ac-title">はじめましての自己紹介です✍︎</div>
         </div>
         <div class="ac-arrow">→</div>
-      </div>
+      </a>
 
     </div>
-    <p class="coming-note">記事が公開されたら、ここにnoteのリンクが追加されます。</p>
   </div>
 
   <footer class="site-footer">
