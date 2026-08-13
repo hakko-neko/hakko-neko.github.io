@@ -103,25 +103,23 @@
   .profile-section .ps-head {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 10px;
     margin-bottom: 18px;
+    position: relative;
+  }
+  .profile-section .ps-head .ps-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
   }
   .profile-section h2 {
     margin: 0;
-    font-size: 16px;
+    font-size: 19px;
     font-weight: 800;
     color: var(--ink);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .profile-section h2::before {
-    content: '';
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--page-accent);
-    display: inline-block;
   }
   .fermentation-badge {
     background: var(--accent-top);
@@ -133,6 +131,8 @@
     border-radius: 999px;
     transform: rotate(4deg);
     box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+    position: absolute;
+    right: 0;
   }
 
   .life-timeline {
@@ -219,10 +219,27 @@
   <div class="profile-section">
     <img src="images/cat-fly.png" alt="" class="fly-cat-bg">
     <div class="ps-head">
+      <img src="images/profile-deco-icon.jpg" alt="" class="ps-icon">
       <h2>ぷろふぃーる</h2>
       <div class="fermentation-badge">🐾 発酵度 78%</div>
     </div>
     <div class="life-timeline">
+      <div class="life-timeline-item">
+        <span class="lt-date">1998年9月</span>
+        <span class="lt-desc">爆誕</span>
+      </div>
+      <div class="life-timeline-item">
+        <span class="lt-date">2007年12月</span>
+        <span class="lt-desc">日能研入塾</span>
+      </div>
+      <div class="life-timeline-item">
+        <span class="lt-date">2011年4月</span>
+        <span class="lt-desc">中高一貫女子校入学</span>
+      </div>
+      <div class="life-timeline-item">
+        <span class="lt-date">2015年7月</span>
+        <span class="lt-desc">初バイト（学校にバレて怒られた）</span>
+      </div>
       <div class="life-timeline-item">
         <span class="lt-date">2017年4月</span>
         <span class="lt-desc">社会人スタート（美容業界）</span>
