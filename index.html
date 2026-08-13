@@ -8,36 +8,99 @@
 <style>
   body { --page-accent: var(--accent-top); --page-accent-soft: var(--accent-top-soft); --page-accent-dark: var(--accent-top-dark); }
 
-  .hero-banner {
-    background: linear-gradient(135deg, var(--accent-top-soft), var(--base-bg-card));
-    border-radius: var(--radius-lg);
-    padding: 36px 28px;
-    margin-bottom: 24px;
-    border: 1px solid var(--base-border);
+  .site-header .logo { transform: rotate(-1deg); }
+
+  /* 背景の肉球パターン */
+  .page { position: relative; }
+  .paw-bg {
+    position: absolute;
+    font-size: 34px;
+    opacity: 0.07;
+    pointer-events: none;
+    z-index: 0;
+    user-select: none;
   }
+
+  .hero-banner {
+    background: linear-gradient(120deg, var(--accent-top-soft) 0%, var(--base-bg-card) 75%);
+    border-radius: 26px 26px 26px 8px;
+    padding: 32px 26px 28px;
+    margin-bottom: 22px;
+    border: 1px solid var(--base-border);
+    position: relative;
+    z-index: 1;
+    transform: rotate(-0.3deg);
+    overflow: hidden;
+  }
+
+  .hero-banner .fly-cat {
+    position: absolute;
+    top: 12px;
+    right: -10px;
+    width: 200px;
+    opacity: 0.16;
+    transform: rotate(-6deg);
+    pointer-events: none;
+  }
+
+  .fermentation-badge {
+    position: absolute;
+    top: -12px;
+    right: 22px;
+    background: var(--accent-top);
+    color: #fffdf8;
+    font-family: 'Yomogi', 'Zen Maru Gothic', sans-serif;
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 999px;
+    transform: rotate(4deg);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+    z-index: 2;
+  }
+
   .hero-banner .mark {
-    width: 140px; height: 140px;
+    width: 130px; height: 130px;
     margin-bottom: 14px;
+    position: relative;
+    z-index: 1;
   }
   .hero-banner .mark img {
     width: 100%; height: 100%;
-    object-fit: contain;
+    object-fit: cover;
+    object-position: center 30%;
   }
   .hero-banner h1 {
     margin: 0 0 6px;
     font-size: 24px;
     font-weight: 800;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-banner .catchphrase {
+    font-family: 'Yomogi', 'Zen Maru Gothic', sans-serif;
+    font-size: 20px;
+    color: var(--accent-top-dark);
+    margin: 0 0 6px;
+    display: inline-block;
+    transform: rotate(-0.6deg);
+    position: relative;
+    z-index: 1;
   }
   .hero-banner .intro {
     margin: 0 0 18px;
     font-size: 14.5px;
     color: var(--ink-soft);
     max-width: 480px;
+    position: relative;
+    z-index: 1;
   }
   .stat-row {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
   }
   .stat-pill {
     background: var(--base-bg-card);
@@ -49,28 +112,94 @@
     display: flex;
     align-items: center;
     gap: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   }
+  .stat-pill:nth-child(1) { transform: rotate(-1deg); }
+  .stat-pill:nth-child(2) { transform: rotate(1deg); }
+  .stat-pill:nth-child(3) { transform: rotate(-0.5deg); }
 
   .highlight-box {
     background: var(--base-bg-card);
-    border: 1px solid var(--base-border);
-    border-left: 4px solid var(--accent-top);
-    border-radius: var(--radius-md);
+    border-radius: 6px 18px 18px 18px;
     padding: 16px 18px;
-    margin-bottom: 28px;
+    margin-bottom: 22px;
     font-size: 13.5px;
+    box-shadow: 2px 4px 10px rgba(0,0,0,0.05);
+    position: relative;
+    z-index: 1;
+    transform: rotate(0.3deg);
   }
   .highlight-box .hb-label {
-    font-size: 11px;
-    font-weight: 800;
+    font-family: 'Yomogi', 'Zen Maru Gothic', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
     color: var(--accent-top-dark);
-    letter-spacing: 0.05em;
     margin-bottom: 6px;
   }
+
+  /* 人生年表セクション */
+  .life-timeline-card {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 22px;
+  }
+  .life-timeline {
+    position: relative;
+    padding-left: 20px;
+  }
+  .life-timeline::before {
+    content: '';
+    position: absolute;
+    left: 5px; top: 6px; bottom: 6px;
+    width: 2px;
+    background: var(--accent-top-soft);
+  }
+  .life-timeline-item {
+    position: relative;
+    padding-bottom: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+  .life-timeline-item:last-child { padding-bottom: 0; }
+  .life-timeline-item::before {
+    content: '🐾';
+    position: absolute;
+    left: -21px; top: -2px;
+    font-size: 12px;
+  }
+  .life-timeline-item .lt-date {
+    font-size: 11.5px;
+    font-weight: 800;
+    color: var(--accent-top-dark);
+    min-width: 90px;
+  }
+  .life-timeline-item .lt-desc {
+    font-size: 13px;
+    color: var(--ink);
+  }
+
+  /* ナビカード（不揃い配置） */
+  .nav-grid {
+    position: relative;
+    z-index: 1;
+  }
+  .nav-card:nth-child(1) { border-radius: 20px 6px 20px 20px; transform: rotate(-0.5deg); }
+  .nav-card:nth-child(2) { border-radius: 6px 20px 20px 20px; transform: rotate(0.8deg); margin-top: 8px; }
+  .nav-card:nth-child(3) { border-radius: 20px 20px 6px 20px; transform: rotate(0.5deg); }
+  .nav-card:nth-child(4) { border-radius: 20px 20px 20px 6px; transform: rotate(-0.7deg); margin-top: -6px; }
+  .nav-card:nth-child(5) { border-radius: 20px 6px 20px 6px; transform: rotate(0.4deg); }
+  .nav-card { border-left: none !important; box-shadow: 0 3px 10px rgba(0,0,0,0.06); }
 </style>
 </head>
 <body>
 <div class="page">
+
+  <span class="paw-bg" style="top: 40px; right: 10px; transform: rotate(18deg);">🐾</span>
+  <span class="paw-bg" style="top: 420px; left: -6px; transform: rotate(-25deg); font-size: 26px;">🐾</span>
+  <span class="paw-bg" style="top: 720px; right: 20%; transform: rotate(30deg); font-size: 22px;">🐾</span>
+  <span class="paw-bg" style="top: 900px; left: 8%; transform: rotate(-10deg); font-size: 28px;">🐾</span>
 
   <header class="site-header">
     <a href="index.html" class="logo"><span class="cat-ear-frame"><img src="images/logo-icon.png" alt=""></span><span class="playful-heading">ねこまた発酵中</span></a>
@@ -84,22 +213,58 @@
   </header>
 
   <div class="hero-banner">
+    <img src="images/cat-fly.png" alt="" class="fly-cat">
+    <div class="fermentation-badge">🐾 発酵度 78%</div>
     <div class="mark cat-ear-frame">
       <img src="images/logo-hero.jpg" alt="ねこまた発酵中 ロゴ">
     </div>
-    <p class="playful-heading" style="font-size: 19px; color: var(--accent-top-dark); margin: 0 0 4px;">発酵中です、生温かく見守ってください^^</p>
+    <p class="catchphrase">発酵中です、生温かく見守ってください!!</p>
     <h1>Sara</h1>
     <p class="intro">通信制大学で学びながら、税理士試験に挑戦中。<br>学習・健康・発信の記録を通して、自分の成長を可視化しています。</p>
     <div class="stat-row">
       <div class="stat-pill">🎓 学習中：財務諸表論／近畿大学法学部</div>
-      <div class="stat-pill">✍️ note：執筆準備中</div>
+      <div class="stat-pill">✍️ note：執筆中</div>
       <div class="stat-pill">💻 このサイトも自作中</div>
     </div>
   </div>
 
   <div class="highlight-box">
-    <div class="hb-label">今月のハイライト</div>
+    <div class="hb-label">🐾 今月のハイライト</div>
     📌 2026年6月：ポータルサイト「ねこまた発酵中」の制作を開始。HTML・CSS・JavaScriptとGoogle Apps Scriptで、健康記録・学習記録の仕組みを自作中。
+  </div>
+
+  <div class="card life-timeline-card">
+    <h2>これまでの歩み</h2>
+    <div class="life-timeline">
+      <div class="life-timeline-item">
+        <span class="lt-date">2017年4月</span>
+        <span class="lt-desc">社会人スタート（美容業界）</span>
+      </div>
+      <div class="life-timeline-item">
+        <span class="lt-date">2019年4月</span>
+        <span class="lt-desc">建築業界へ</span>
+      </div>
+      <div class="life-timeline-item">
+        <span class="lt-date">2020年1月</span>
+        <span class="lt-desc">運送業界へ</span>
+      </div>
+      <div class="life-timeline-item">
+        <span class="lt-date">2024年1月</span>
+        <span class="lt-desc">会計業界へ（TKC会計事務所）</span>
+      </div>
+      <div class="life-timeline-item">
+        <span class="lt-date">2025年10月</span>
+        <span class="lt-desc">近畿大学 通信教育部 法学部 入学</span>
+      </div>
+      <div class="life-timeline-item">
+        <span class="lt-date">2025年11月</span>
+        <span class="lt-desc">税理士試験 簿記論 合格</span>
+      </div>
+      <div class="life-timeline-item">
+        <span class="lt-date">2026年10月</span>
+        <span class="lt-desc">産業能率大学 科目等履修 開始</span>
+      </div>
+    </div>
   </div>
 
   <div class="nav-grid">
