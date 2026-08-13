@@ -21,44 +21,19 @@
     user-select: none;
   }
 
-  /* ロゴだけの大きいバナー */
-  .hero-banner {
-    background: linear-gradient(120deg, var(--accent-top-soft) 0%, var(--base-bg-card) 75%);
-    border-radius: 26px 26px 26px 8px;
-    padding: 30px 26px;
-    margin-bottom: 22px;
-    border: 1px solid var(--base-border);
+  /* ロゴだけを大きく見せるセクション（枠なし） */
+  .hero-logo-section {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0 10px;
+    margin-bottom: 10px;
     position: relative;
     z-index: 1;
-    transform: rotate(-0.3deg);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
   }
-
-  .fermentation-badge {
-    align-self: flex-end;
-    background: var(--accent-top);
-    color: #fffdf8;
-    font-family: 'Yomogi', 'Zen Maru Gothic', sans-serif;
-    font-size: 12.5px;
-    font-weight: 700;
-    padding: 6px 16px;
-    border-radius: 999px;
-    transform: rotate(4deg);
-    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
-    margin-bottom: 8px;
-  }
-
-  .hero-banner .mark {
-    width: 220px; height: 220px;
-    margin-bottom: 6px;
-  }
-  .hero-banner .mark img {
-    width: 100%; height: 100%;
-    object-fit: contain;
+  .hero-logo-section img {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
   }
 
   .highlight-box {
@@ -125,8 +100,14 @@
     pointer-events: none;
     z-index: -1;
   }
+  .profile-section .ps-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
   .profile-section h2 {
-    margin: 0 0 18px;
+    margin: 0;
     font-size: 16px;
     font-weight: 800;
     color: var(--ink);
@@ -141,6 +122,17 @@
     border-radius: 50%;
     background: var(--page-accent);
     display: inline-block;
+  }
+  .fermentation-badge {
+    background: var(--accent-top);
+    color: #fffdf8;
+    font-family: 'Yomogi', 'Zen Maru Gothic', sans-serif;
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 999px;
+    transform: rotate(4deg);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
   }
 
   .life-timeline {
@@ -200,11 +192,8 @@
     </nav>
   </header>
 
-  <div class="hero-banner">
-    <div class="fermentation-badge">🐾 発酵度 78%</div>
-    <div class="mark">
-      <img src="images/logo-hero.jpg" alt="ねこまた発酵中 ロゴ">
-    </div>
+  <div class="hero-logo-section">
+    <img src="images/logo-hero-transparent.png" alt="ねこまた発酵中 ロゴ">
   </div>
 
   <div class="highlight-box">
@@ -221,7 +210,10 @@
 
   <div class="profile-section">
     <img src="images/cat-fly.png" alt="" class="fly-cat-bg">
-    <h2>プロフィール</h2>
+    <div class="ps-head">
+      <h2>プロフィール</h2>
+      <div class="fermentation-badge">🐾 発酵度 78%</div>
+    </div>
     <div class="life-timeline">
       <div class="life-timeline-item">
         <span class="lt-date">2017年4月</span>
