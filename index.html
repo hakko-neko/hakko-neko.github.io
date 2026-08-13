@@ -55,33 +55,45 @@
     margin-bottom: 6px;
   }
 
-  /* アイコンだけのナビ */
+  /* アイコンナビ（画像＋ラベル） */
   .icon-nav {
     display: flex;
     justify-content: center;
-    gap: 18px;
+    gap: 20px;
     margin-bottom: 30px;
     position: relative;
     z-index: 1;
     flex-wrap: wrap;
   }
   .icon-nav a {
-    width: 58px; height: 58px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+  }
+  .icon-nav a .icon-circle {
+    width: 64px; height: 64px;
     border-radius: 50%;
     background: var(--base-bg-card);
     border: 1px solid var(--base-border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    text-decoration: none;
+    overflow: hidden;
     box-shadow: 0 3px 8px rgba(0,0,0,0.06);
     transition: transform .15s;
   }
-  .icon-nav a:hover { transform: translateY(-3px); }
-  .icon-nav a:nth-child(odd) { transform: rotate(-3deg); }
-  .icon-nav a:nth-child(even) { transform: rotate(3deg); }
-  .icon-nav a:hover { transform: translateY(-3px) rotate(0deg); }
+  .icon-nav a .icon-circle img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .icon-nav a:nth-child(odd) .icon-circle { transform: rotate(-3deg); }
+  .icon-nav a:nth-child(even) .icon-circle { transform: rotate(3deg); }
+  .icon-nav a:hover .icon-circle { transform: translateY(-3px) rotate(0deg); }
+  .icon-nav a .icon-label {
+    font-family: 'Yomogi', 'Zen Maru Gothic', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+  }
 
   /* プロフィールセクション */
   .profile-section {
@@ -212,10 +224,22 @@
   </div>
 
   <div class="icon-nav">
-    <a href="learning.html" title="Learning">📚</a>
-    <a href="writing.html" title="Writing">✍️</a>
-    <a href="projects.html" title="Projects">💻</a>
-    <a href="growth.html" title="Growth">🌱</a>
+    <a href="learning.html">
+      <span class="icon-circle"><img src="images/nav-learning.png" alt="Learning"></span>
+      <span class="icon-label">べんきょう</span>
+    </a>
+    <a href="writing.html">
+      <span class="icon-circle"><img src="images/nav-writing.png" alt="Writing"></span>
+      <span class="icon-label">のーと</span>
+    </a>
+    <a href="projects.html">
+      <span class="icon-circle"><img src="images/nav-projects.png" alt="Projects"></span>
+      <span class="icon-label">かいはつ</span>
+    </a>
+    <a href="growth.html">
+      <span class="icon-circle"><img src="images/nav-growth.png" alt="Growth"></span>
+      <span class="icon-label">きろく</span>
+    </a>
   </div>
 
   <div class="profile-section">
